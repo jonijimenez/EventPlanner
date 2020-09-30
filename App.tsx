@@ -1,9 +1,11 @@
 import React from 'react'
 import {
+  Modal,
   SafeAreaView,
   ScrollView,
   StatusBar,
   Text,
+  TextInput,
   TouchableOpacity,
   View
 } from 'react-native'
@@ -11,6 +13,8 @@ import {
 import Styles from './Styles'
 
 const App = () => {
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -21,6 +25,7 @@ const App = () => {
             <Text>Memories you'll look forward to</Text>
             <TouchableOpacity
               style={Styles.homePageCreateButton}
+              onPress={() => setModalVisible(true)}
             >
               <Text style={Styles.homePageCreateButtonText}>
                 CREATE EVENT
@@ -90,6 +95,62 @@ const App = () => {
             </ScrollView>
           </View>
         </View>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+        >
+          <View style={Styles.createEventModal}>
+            <View style={Styles.createEventModalContainer}>
+              <Text style={Styles.createEventModalHeader}>
+                Create Event
+              </Text>
+              <View style={Styles.createEventModalInputGroup}>
+                <Text style={Styles.createEventModalInputLabel}>Name</Text>
+                <TextInput
+                  style={Styles.createEventModalTextInput}
+                  placeholder="Name"
+                />
+              </View>
+              <View style={Styles.createEventModalInputGroup}>
+                <Text style={Styles.createEventModalInputLabel}>Objective</Text>
+                <TextInput
+                  style={Styles.createEventModalTextInput}
+                  placeholder="Objective"
+                />
+              </View>
+              <View style={Styles.createEventModalInputGroup}>
+                <Text style={Styles.createEventModalInputLabel}>Start Date</Text>
+                <TextInput
+                  style={Styles.createEventModalTextInput}
+                  placeholder="Start Date"
+                />
+              </View>
+              <View style={Styles.createEventModalInputGroup}>
+                <Text style={Styles.createEventModalInputLabel}>End Date</Text>
+                <TextInput
+                  style={Styles.createEventModalTextInput}
+                  placeholder="End Date"
+                />
+              </View>
+              <View style={Styles.createEventModalSubmitGroup}>
+                <TouchableOpacity
+                  style={Styles.createEventModalCancelButton}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text style={Styles.createEventModalCancelButtonText}>CANCEL</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={Styles.createEventModalSubmitButton}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text style={Styles.createEventModalSubmitButtonText}>CREATE</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     </>
   );
